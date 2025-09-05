@@ -11,7 +11,7 @@ app = FastAPI(title="Test API", description="Simple API for deployment testing")
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3000","http://139.162.83.171:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
