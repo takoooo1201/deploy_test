@@ -1,0 +1,35 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend:/app/frontend/
+      - frontend_node_modules:/app/frontend/node_modules
+    ports:
+      - 3000:3000
+  backend:
+    build:
+      context: ./backend
+    volumes:
+      - ./backend/:/app/backend/
+    environment:
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+    ports:
+      - 80:80
+  mongodb:
+    image: mongodb/mongodb-community-server:latest
+    container_name: mongodb_deploy_test
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      - MONGODB_INITDB_ROOT_USERNAME=${DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+volumes:
+  mongodb_data:
+  frontend_node_modules:
